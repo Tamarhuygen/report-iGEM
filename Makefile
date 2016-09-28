@@ -26,7 +26,7 @@ MKDIR = mkdir -p
 %.pstex_t: %.fig %.pstex
 	fig2dev -L pstex_t -p $*.pstex $< > $@
 
-%.pdf: %.fig
+%.pdftex: %.fig
 	fig2dev -L pdftex $< > $@
 
 .PRECIOUS : %.pdftex
