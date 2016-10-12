@@ -7,7 +7,7 @@ FIGFILES=reaction_overview plaatje2
 
 FIGFILENAMES=$(foreach fil,$(FIGFILES), $(fil).fig)
 PDFT_NAMES=$(foreach fil,$(FIGFILES), $(fil).pdftex_t)
-PDF_FIG_NAMES=$(foreach fil,$(FIGFILES), $(fil).pdftex)
+PDF_FIG_NAMES=$(foreach fil,$(FIGFILES), $(fil).pdf)
 PST_NAMES=$(foreach fil,$(FIGFILES), $(fil).pstex_t)
 PS_FIG_NAMES=$(foreach fil,$(FIGFILES), $(fil).pstex)
 
@@ -26,12 +26,16 @@ MKDIR = mkdir -p
 %.pstex_t: %.fig %.pstex
 	fig2dev -L pstex_t -p $*.pstex $< > $@
 
-%.pdftex: %.fig
+
+%.pdf: %.fig
 	fig2dev -L pdftex $< > $@
 
+
 .PRECIOUS : %.pdftex
-%.pdftex_t: %.fig %.pstex
-	fig2dev -L pdftex_t -p $*.pdftex $< > $@
+
+%.pdftex_t: %.fig %.pdf
+	fig2dev -L pdftex_t -p $*.pdf $< > $@
+
 
 report.pdf : report.tex $(PDFT_NAMES) $(PDF_FIG_NAMES)
 	$(T2PDF) report
