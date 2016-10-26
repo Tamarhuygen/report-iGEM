@@ -11,21 +11,19 @@
 \makeatother
 \begin{document}
 \begin{algorithm}
-  \caption{Old (simple) stable compound generator algorithm. We find reactions associated with a certain compound and take a combination of these reactions and switch them of. In reality we cannot switch off reactions, we have to remove genes. This is why this is just a simple version of the algorithm.}\label{alg:scg_old}
+  \caption{Old (simple) stable compound generator algorithm. We find reactions associated with a certain compound and take a combination of these reactions and switch them of. In reality we cannot switch off reactions, we have to remove genes. This is why this is just a simple version of the algorithm. }\label{alg:scg_old}
   \begin{algorithmic}[1]
     \Procedure{FindReactions}{$compound$, $model$}
         \State $hits \gets \text{\{ \}}$
         \State $r1 \gets [\text{ }]$ 
         \For{$r \in model.reactions$}
         \LineCommentCont{$model.reactions$ gives a list of all reactions in the model. $r$ loops over all these reactions}
-            \If{$compound \in r.products \wedge r.flux > 0$}
-            \LineCommentCont{$r.products$ is a list of all products produced by reaction $r$ and $r.flux$ gives the flux through the reaction $r$. If $r.flux > 0 $, then the reaction netto produces the products. If $r.flux < 0$, then the reaction mostly happens in the opposite direction, causing reactants to be formed and products to be used.}
-                \State $r1.append(r)$
-            \ElsIf{$compound \in r.reactants \wedge r.flux < 0$}
+            \If{$compound \in r.products \vee compound \in r.reactans$}
+            \LineCommentCont{$r.products$ is a list of all products produced by reaction and $r.ractants$ is a list of all reactants of reaction $r$.}
                 \State $r1.append(r)$
             \EndIf
         \EndFor
-        \If $length(r1)>1$
+        \If{$length(r1)>1$}
             \State $combinations \gets [comb(r1)]$
             \LineCommentCont{$combinations$ is a list of lists. Each list in combinations contains a combination of reactions that are in r1}
             \State $genes \gets \text{\{ \}}$
@@ -37,8 +35,7 @@
                 \If{$growth > 0$}
                     \If{$compound \in hits.keys()$}
                         \State $hits[compound].append(c)$
-                        \Else 
-                            $hits[compound] \gets [c]$
+                        \Else{$hits[compound] \gets [c]$}
                     \EndIf
                 \EndIf
             \EndFor
