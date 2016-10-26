@@ -32,7 +32,7 @@
                     \State $r.flux \gets 0$
                 \EndFor
                 \State $analyseModel(model)$
-                \If{$growth > 0$}
+                \If{$growth > 0 \wedge compound produced$}
                     \If{$compound \in hits.keys()$}
                         \State $hits[compound].append(c)$
                         \Else{$hits[compound] \gets [c]$}
