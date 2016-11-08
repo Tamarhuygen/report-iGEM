@@ -85,7 +85,28 @@ We have 2 prerequisites to be able to have a stable production of compound B. Th
 The second requirement is that we are able to take out reaction 2 and still yield viable cells, so reaction 2 has to be non-essential for the production of biomass. It is reaction 2 which we want to find. So a first algorithm can look for all reactions that consume B and take all of them out and see if the cells still produce biomass. If so, it returns reaction 2 to us.
 
 \subsubsection{Combinatorial problems}
-Now consider figure !! Here normally B is consumed by reaction 2 and reaction 3 is normally not used by the cell. Only when reaction 2 is taken out, reaction 3 is used to consume B. So we have to take out reaction 2 and reaction 3 to be able to produce B. The algorithm we just thought of would return reaction 2 to us, because when it looks for reactions that consume B it will only find reaction 2 because initially the flux through reaction 3 was equal to 0. To solve this problem we have to look for all reactions which are able to consume B. But this is where it gets complex and where we already can see the scheme is a simplification. Most reactions in a cell are chemical balances which are driven in a certain direction because the products are consumed again, driving a mass flux through the reaction. But potentially almost all reactions in the model can potentially also happen in the reverse direction when the product is no longer consumed. This means that when we look for reactions that can potentially consume B, we also find reaction 1. We don't want to take out reaction 1 because we have earlier assumed it was essential for the production of biomass and will yield non-viable cells. So an algorithm which looks for all reactions that potentially can consume B and takes them all down will not find anything in this situation. Another possibility is that there are multiple reactions such as reaction 1 which produce B, and are essential for biomass generation. So we cannot just find reaction 1 and take out all other reactions that potentially consume B. So the algorithm has to list all reactions that potentially consume B, and find a subset of reactions which it can take out such that the cell is still viable and produces B. In order to find this subset we have to try out all possible subsets. In this scheme the possibilities the algorithm would create the following list of reactions: ${1, 2, 3}$. Then it will have to create a list of all combinations of these reactions: ${{1},{2},{3},{1,2},{1,3},{2,3}}$ (the list doesn't contain $\enptyset$, nor ${1,2,3}$ because we don't have to try taking out no reactions, because then we wouldn't change the cell and we don't have to try taking out all reactions, because then we will also take out all reactions that produce B and we cannot produce B to begin with). The algorithm then has to try each of these subsets. In this case that is doable. In all combinations where reaction 1 is taken out the cells are not viable, so the algorithm won't return them and in cases where only reaction 2 or reaction 3 is taken out, B won't be produced, so the algorithm won't return them, but the algorithm will return ${2,3}$ given that reactions 2 and 3 are not essential for cell growth. However if $n$ is the number of reactions where B is involved in, the amount of possible combinations increases with $2^n$. So the algorithm will exponentially become slower, the more reactions are involved. In the implementation of the algorithm we will define an upper limit of combinations which are tried out before it stops. We will start with combinations in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in real live.
+Now consider figure !! Here normally B is consumed by reaction 2 and reaction 3 is normally not used by the cell.
+Only when reaction 2 is taken out, reaction 3 is used to consume B.
+So we have to take out reaction 2 and reaction 3 to be able to produce B.
+The algorithm we just thought of would return reaction 2 to us, because when it looks for reactions that consume B it will only find reaction 2 because initially the flux through reaction 3 was equal to 0.
+To solve this problem we have to look for all reactions which are able to consume B.
+But this is where it gets complex and where we already can see the scheme is a simplification.
+Most reactions in a cell are chemical balances which are driven in a certain direction because the products are consumed again, driving a mass flux through the reaction.
+But potentially almost all reactions in the model can potentially also happen in the reverse direction when the product is no longer consumed.
+This means that when we look for reactions that can potentially consume B, we also find reaction 1.
+We don't want to take out reaction 1 because we have earlier assumed it was essential for the production of biomass and will yield non-viable cells.
+So an algorithm which looks for all reactions that potentially can consume B and takes them all down will not find anything in this situation.
+Another possibility is that there are multiple reactions such as reaction 1 which produce B, and are essential for biomass generation.
+So we cannot just find reaction 1 and take out all other reactions that potentially consume B.
+So the algorithm has to list all reactions that potentially consume B, and find a subset of reactions which it can take out such that the cell is still viable and produces B.
+In order to find this subset we have to try out all possible subsets. In this scheme the possibilities the algorithm would create the following list of reactions: ${1, 2, 3}$.
+Then it will have to create a list of all combinations of these reactions: ${{1},{2},{3},{1,2},{1,3},{2,3}}$ (the list doesn't contain $\enptyset$, nor ${1,2,3}$ because we don't have to try taking out no reactions, because then we wouldn't change the cell and we don't have to try taking out all reactions, because then we will also take out all reactions that produce B and we cannot produce B to begin with).
+The algorithm then has to try each of these subsets.
+In this case that is doable.
+In all combinations where reaction 1 is taken out the cells are not viable, so the algorithm won't return them and in cases where only reaction 2 or reaction 3 is taken out, B won't be produced, so the algorithm won't return them, but the algorithm will return ${2,3}$ given that reactions 2 and 3 are not essential for cell growth.
+However if $n$ is the number of reactions where B is involved in, the amount of possible combinations increases with $2^n$.
+So the algorithm will exponentially become slower, the more reactions are involved.
+In the implementation of the algorithm we will define an upper limit of combinations which are tried out before it stops. We will start with combinations in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in real live.
 
 \subsubsection{Completeness}
 Now consider the reaction scheme shown in figure !!. To produce B we might take out reaction 2, but another possibility might be to take out reaction 3. When C accumulates the flux through reaction 2 might become 0 and B might also be produced and transported out of the cell. Our algorithm won't find this possibility, because it only searches for reactions that potentially consume B. This means our algorithm is not complete and will not return all possible reactions which can be taken out in order to create an organism that produces B. We have shortly tried to find reactions further down the pathways, but usually this yields almost all reactions of a cell. This in combination with the earlier described combinatorial problems yields a unusable algorithm. So for now we accept that the algorithm is not complete and does not guarantee that it finds all possible reactions that can be taken out to produce B.
@@ -100,10 +121,9 @@ The algorithm than has to do the following:
 \item For each listed gene association list the combination of genes that can be turned of in order to make the reaction no longer happen.
 \item For each combination of genes just listed, turn off the genes (this means the algorithm will find each reaction which has the gene in its gene association and determines which of these reactions is taken out when the genes are taken out of this genes and sets the flux through these reactions to 0)
 \item Analyze model and check if cell still produces biomass and if compound B is produced.
-\item return succesful combinations of genes.
+\item return successful combinations of genes.
 \end{itemize}
 
-Like explained in section \ref{sec:intro_models}
 
 \begin{figure}[hbtp]
   \centering
@@ -117,7 +137,7 @@ Like explained in section \ref{sec:intro_models}
 \section{Methods}
 \subsection{Implementation}
 \subsubsection{Genes}
-Because the models we use are not perfect and the and- and or- relations between the genes cannot be trusted, we 
+Because the models we use are not perfect, the and- and or- relations between the genes cannot be trusted. We still want the algorithm to return genes and so we have a different implementation than the one given in the introduction. If we cannot take the and- and or- relations into account we can still play 
 
 \begin{algorithm}
   \caption{Old (simple) stable compound generator algorithm. We find reactions associated with a certain compound and take a combination of these reactions and switch them of. In reality we cannot switch off reactions, we have to remove genes. This is why this is just a simple version of the algorithm.}\label{alg:scg_old}
