@@ -76,28 +76,31 @@ How does this module fit into the project?
 An important goal in the bio-industry is the production of certain carbon containing compounds. When we let micro-organisms produce these compounds, there is always a stability challenge. Usually it is better in terms of fitness for an organism use all carbon it can for the generation of biomass. So consider an organism which where we have inserted genes which forces the organism to produce a certain compound and transport it out of the cell, so that we may use it. A mutation may yield an organism which does no longer produce the compound. Organisms with this mutation likely have a fitness advantage over organisms without this mutation, because they can use all carbon compounds for generation of biomass and don't leak carbon compound to the environment. This means that soon after the appearance of the mutation the non-productive organisms will take over the entire population and the production stops and has to be re-initiated. We want to address this problem and have created an algorithm which searches for solutions that force an organism to produce a carbon compound, with a much smaller chance of rendering a non-productive population.
 
 \subsection{Models}\label{sec:intro_models}
-FBA models consist of a set of differential equations which model the flux of mass through reactions. It is important to note that the base of the model consists of reactions.
+FBA models consist of a set of differential equations that model the flux of mass through reactions.
+It is important to note that the base of the model consists of reactions.
 Genes play an important role in the models, but only in terms of the influence of the genes on the reactions.
 In reality there is a complex interaction between genes, gene regulation, transcription, translation and the reactions.
 In our models the genes are only encoded in the influence they eventually have on the flux through the reactions.
 In the models we use the reactions sometimes have gene associations.
-These gene associations list genes which when turned on, make the reaction possible.
+These gene associations list genes, that when turned on, make the reaction possible.
 If there are multiple genes listed in the gene association they can have an \emph{or} or an \emph{and} relationship.
 In figure !! two reactions are shown with the genes that are listed in the gene association of these reactions.
-For reaction 1 to happen, gene 1 and gene 2 are needed. For reaction 2 either gene 2 or gen 3 are needed. So when we take out gene 2, while gene 1 and gene 3 stay active, reaction 1 is taken out, while reaction 2 is still active. To simulate the situation where gene 2 is inactive, we actually just set the flux of reaction 1 to zero.
-The models we used were not perfect. Especially the \emph{and} and \emph{or} relationships of these genes cannot be trusted, simply because we don't know these relationships most of the times.
+For reaction 1 to happen, gene 1 and gene 2 are needed. For reaction 2 either gene 2 or gene 3 are needed. So when we take out gene 2, while gene 1 and gene 3 stay active, reaction 1 is taken out, while reaction 2 is still active. To simulate the situation where gene 2 is inactive, we actually just set the flux of reaction 1 to zero.
+The models we used were not perfect. Especially the \emph{and} and \emph{or} relationships between the genes cannot be trusted, simply because we don't know these relationships most of the times.
 How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
-To solve this problem we try to be conservative when to return a solution.
+Assume we want to prevent a certain reaction from happening. Let us call this reaction the primary reaction. Now our algorithm does the following:
+\begin{enumerate}
+\item Make a list of all genes associated to the primary reaction
+\item Make a list of all reactions that have at least one the genes from the list in its gene associations. We will call these reactions secondary reactions.
+\item Set the fluxes of all secondary reactions to zero
+\item Analyse model
+\item Check if cells still grow
+\item Check if compound of interest is produced by the cell
+\item If cell still grows and produces compound, return set of genes
+\end{enumerate}
 
-
-Now if we call the reaction we want to take out the primary reaction. Now we list all genes associated to it. Other reactions in the model might also have these one of genes in their gene association. Some of these reactions might even be dependent on one of these genes. We will call reactions that have one of the genes in its gene association secondary reactions.
-
-Suppose we have an algorithm which returns a set of genes which we can delete to prevent a primary reaction from happening. We want to prevent the situation where we have actually deleted the genes and the reaction still happens. That is why, to be safe we assume we have to take out all genes that are associated with the primary reaction. Now suppose one of the reaction
-
-
-
-We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. This might not be necessary, because maybe some of the genes have an \emph{and} relationship with each other and we would just have to take out one of them. However, we cannot trust the relationships. We want to prevent the situation where the reaction would still take place from happening, when we take out too little genes. Because we assumed an \emph{or} relationship. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it. We do this because we don't want the situation that when we have finally altered our organism, there is still a flux through the reaction, because we didn't take down all genes we needed to.
-
+This algorithm is in two aspects conservative in the solutions it returns.
+In reality we are not sure what will happen when only a subset of genes associated to a reaction gets deleted. We want to avoid the risk that a primary still takes place when any of the associated genes is still present. We also don't want to render non-viable cells after we have deleted the genes. A secondary reaction might be essential for cell growth. We want to avoid the risk the algorithm returns a seemingly valid solution, where actually a secondary reaction that is essential for cell growth has been stopped. This is why we assume all secondary reactions are stopped, even though only a subset of the associated genes of these reactions is deleted.
 
 \subsection{Stable compound generator}
 The goal of the stable compound generator is to find genes which can be deleted in order to create an organism which has to produce a certain carbon compound. Consider the reaction scheme in figure \ref{fig:reaction_overview}. Our goal is to produce compound B. Our initial plan to achieve this goal is to take out reaction 2. Assume reaction 2 is the only reaction which consumes B. By taking out the reaction we hope the cell will not be able to use B and accumulate and transport it out of the cell.
