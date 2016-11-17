@@ -1,4 +1,4 @@
-\documentclass[10pt]{report}
+\documentclass[12pt]{report}
 %\usepackage{ae} % or {zefonts}
 \usepackage[T1]{fontenc}
 %\usepackage[utf8]{inputenc}
@@ -76,12 +76,12 @@ How does this module fit into the project?
 An important goal in the bio-industry is the production of certain carbon containing compounds. When we let micro-organisms produce these compounds, there is always a stability challenge. Usually it is better in terms of fitness for an organism use all carbon it can for the generation of biomass. So consider an organism which where we have inserted genes which forces the organism to produce a certain compound and transport it out of the cell, so that we may use it. A mutation may yield an organism which does no longer produce the compound. Organisms with this mutation likely have a fitness advantage over organisms without this mutation, because they can use all carbon compounds for generation of biomass and don't leak carbon compound to the environment. This means that soon after the appearance of the mutation the non-productive organisms will take over the entire population and the production stops and has to be re-initiated. We want to address this problem and have created an algorithm which searches for solutions that force an organism to produce a carbon compound, with a much smaller chance of rendering a non-productive population.
 
 \subsection{Models}\label{sec:intro_models}
-FBA models consist of a set of differential equations which model the flux of mass through reactions. It is important to note that the base of the model consists of reactions.
+FBA models consist of a set of differential equations that model the flux of mass through reactions. It is important to note that the base of the model consists of reactions.
 Genes play an important role in the models, but only in terms of the influence of the genes on the reactions.
 In reality there is a complex interaction between genes, gene regulation, transcription, translation and the reactions.
 In our models the genes are only encoded in the influence they eventually have on the flux through the reactions.
-In the models we use the reactions sometimes have gene associations.
-These gene associations list genes which when turned on, make the reaction possible.
+In the models we use, the reactions sometimes have gene associations.
+These gene associations list genes that, when turned on, make the reaction possible.
 If there are multiple genes listed in the gene association they can have an \emph{or} or an \emph{and} relationship.
 In figure !! two reactions are shown with the genes that are listed in the gene association of these reactions.
 For reaction 1 to happen, gene 1 and gene 2 are needed. For reaction 2 either gene 2 or gen 3 are needed. So when we take out gene 2, while gene 1 and gene 3 stay active, reaction 1 is taken out, while reaction 2 is still active. To simulate the situation where gene 2 is inactive, we actually just set the flux of reaction 1 to zero.
