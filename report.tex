@@ -76,7 +76,21 @@ How does this module fit into the project?
 An important goal in the bio-industry is the production of certain carbon containing compounds. When we let micro-organisms produce these compounds, there is always a stability challenge. Usually it is better in terms of fitness for an organism use all carbon it can for the generation of biomass. So consider an organism which where we have inserted genes which forces the organism to produce a certain compound and transport it out of the cell, so that we may use it. A mutation may yield an organism which does no longer produce the compound. Organisms with this mutation likely have a fitness advantage over organisms without this mutation, because they can use all carbon compounds for generation of biomass and don't leak carbon compound to the environment. This means that soon after the appearance of the mutation the non-productive organisms will take over the entire population and the production stops and has to be re-initiated. We want to address this problem and have created an algorithm which searches for solutions that force an organism to produce a carbon compound, with a much smaller chance of rendering a non-productive population.
 
 \subsection{Models}\label{sec:intro_models}
-FBA models consist of a set of differential equations which model the flux of mass through reactions. It is important to note that the base of the model consists of reactions. Genes play an important role in the models, but only in terms of the influence of the genes on the reactions. In reality there is a complex interaction between genes, gene regulation, transcription, translation and the reactions. In our models the genes are only encoded in the influence they eventually have on the flux through the reactions. In the models we use the reactions sometimes have gene associations. These gene associations list genes which when turned on, make the reaction possible. If there are multiple genes listed in the gene association they can have an or- or an and- relationship. In figure !! two reactions are shown with the genes that are listed in the gene association of these reactions. 
+FBA models consist of a set of differential equations which model the flux of mass through reactions. It is important to note that the base of the model consists of reactions.
+Genes play an important role in the models, but only in terms of the influence of the genes on the reactions.
+In reality there is a complex interaction between genes, gene regulation, transcription, translation and the reactions.
+In our models the genes are only encoded in the influence they eventually have on the flux through the reactions.
+In the models we use the reactions sometimes have gene associations.
+These gene associations list genes which when turned on, make the reaction possible.
+If there are multiple genes listed in the gene association they can have an \emph{or} or an \emph{and} relationship.
+In figure !! two reactions are shown with the genes that are listed in the gene association of these reactions.
+For reaction 1 to happen, gene 1 and gene 2 are needed. For reaction 2 either gene 2 or gen 3 are needed. So when we take out gene 2, while gene 1 and gene 3 stay active, reaction 1 is taken out, while reaction 2 is still active. To simulate the situation where gene 2 is inactive, we actually just set the flux of reaction 1 to zero.
+The models we used were not perfect. Especially the \emph{and} and \emph{or} relationships of these genes cannot be trusted, simply because we don't know these relationships most of the times.
+How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
+To solve this problem we try to be conservative when to return a solution.
+Now if we call the reaction we want to take out the primary reaction. Now we list all genes associated to it. Other reactions in the model might also have these genes in their gene association and they might be dependent on them. We call these reactions the secondary reactions. We want to return
+We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it. We do this because we don't want the situation that when we have finally altered our organism, there is still a flux through the reaction, because we didn't take down all genes we needed to.
+
 
 \subsection{Stable compound generator}
 The goal of the stable compound generator is to find genes which can be deleted in order to create an organism which has to produce a certain carbon compound. Consider the reaction scheme in figure \ref{fig:reaction_overview}. Our goal is to produce compound B. Our initial plan to achieve this goal is to take out reaction 2. Assume reaction 2 is the only reaction which consumes B. By taking out the reaction we hope the cell will not be able to use B and accumulate and transport it out of the cell.
@@ -85,35 +99,44 @@ We have 2 prerequisites to be able to have a stable production of compound B. Th
 The second requirement is that we are able to take out reaction 2 and still yield viable cells, so reaction 2 has to be non-essential for the production of biomass. It is reaction 2 which we want to find. So a first algorithm can look for all reactions that consume B and take all of them out and see if the cells still produce biomass. If so, it returns reaction 2 to us.
 
 \subsubsection{Combinatorial problems}
-Now consider figure !! Here normally B is consumed by reaction 2 and reaction 3 is normally not used by the cell.
-Only when reaction 2 is taken out, reaction 3 is used to consume B.
-So we have to take out reaction 2 and reaction 3 to be able to produce B.
-The algorithm we just thought of would return reaction 2 to us, because when it looks for reactions that consume B it will only find reaction 2 because initially the flux through reaction 3 was equal to 0.
-To solve this problem we have to look for all reactions which are able to consume B.
-But this is where it gets complex and where we already can see the scheme is a simplification.
-Most reactions in a cell are chemical balances which are driven in a certain direction because the products are consumed again, driving a mass flux through the reaction.
-But potentially almost all reactions in the model can potentially also happen in the reverse direction when the product is no longer consumed.
-This means that when we look for reactions that can potentially consume B, we also find reaction 1.
-We don't want to take out reaction 1 because we have earlier assumed it was essential for the production of biomass and will yield non-viable cells.
-So an algorithm which looks for all reactions that potentially can consume B and takes them all down will not find anything in this situation.
+The reaction schemes shown in figure !! are in some way all simplifications. Most reactions have a forward reaction and a reverse reaction. When a reaction is in chemical equilibrium, the forward reaction happens in the same rate as the reverse reaction. This means the net flux of mass through the reaction is zero. Potentially the rate of the reverse reaction can be higher than the rate of the forward reaction. This causes a negative flux through the reaction.
+Consider figure !!. Under normal circumstances B is consumed by reaction 2 and reaction 3 is in chemical equilibrium.
+Only when reaction 2 is taken out, reaction 3 is used to consume B and the forward flux becomes positive.
+In order for the cell to produce B reactions 2 and 3 have to be taken out simultaneously.
+An algorithm which searches for reactions that have a mass flux from B to another substance, will only find reaction 2, because initially the flux through reaction 3 is equal to zero. Then after it sets the flux through reaction 2 to zero, the flux through reaction 3 will become positive and the cell would still not produce B. 
+To solve this problem the algorithm will have to search for all reactions which are potentially able to consume B. This means all reactions that list compound B as one of its products or as one of its reactants, independent of the mass flux.
+An algorithm that would search for these reactions would also list the reaction that initially produces the compound. In figure !! reaction 1 is such a reaction.
+Earlier we assumed reaction 1 is essential for the production of biomass and will yield non-viable cells.
+When the algorithm would set the flux of all reactions that list compound B one of its products as well as all reactions that list B as one of its reactants to zero it would also set the flux of reaction 1 to zero. When it then analyzes the model it will find that the cell is not viable anymore. So in order to find the combination of reactions that we have to take out in order for B to be produced (in this case take out reaction 2 and reaction 3, but not reaction 1) we will have to test combinations of reactions.
 Another possibility is that there are multiple reactions such as reaction 1 which produce B, and are essential for biomass generation.
-So we cannot just find reaction 1 and take out all other reactions that potentially consume B.
+This means that we cannot just find reaction 1 and only set the flux through all other compound B involving reactions to zero.
 So the algorithm has to list all reactions that potentially consume B, and find a subset of reactions which it can take out such that the cell is still viable and produces B.
 In order to find this subset we have to try out all possible subsets. In this scheme the possibilities the algorithm would create the following list of reactions: ${1, 2, 3}$.
 Then it will have to create a list of all combinations of these reactions: ${{1},{2},{3},{1,2},{1,3},{2,3}}$ (the list doesn't contain $\emptyset$, nor ${1,2,3}$ because we don't have to try taking out no reactions, because then we wouldn't change the cell and we don't have to try taking out all reactions, because then we will also take out all reactions that produce B and we cannot produce B to begin with).
 The algorithm then has to try each of these subsets.
-In this case that is doable.
-In all combinations where reaction 1 is taken out the cells are not viable, so the algorithm won't return them and in cases where only reaction 2 or reaction 3 is taken out, B won't be produced, so the algorithm won't return them, but the algorithm will return ${2,3}$ given that reactions 2 and 3 are not essential for cell growth.
+In the example given by figure !! it is possible to try out all these possibilities within a reasonable amount of time.
+In all combinations where reaction 1 is taken out the cells are not viable, so such an algorithm won't return them and in cases where only reaction 2 or reaction 3 is taken out, B won't be produced, so the algorithm also won't return them, but the algorithm will return ${2,3}$ given that reactions 2 and 3 are not essential for cell growth.
 However if $n$ is the number of reactions where B is involved in, the amount of possible combinations increases with $2^n$.
-So the algorithm will exponentially become slower, the more reactions are involved.
-In the implementation of the algorithm we will define an upper limit of combinations which are tried out before it stops. We will start with combinations in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in real live.
+This means the algorithm will exponentially become slower with the amount of reactions that are involved.
+In the implementation of the algorithm we will define an upper limit of combinations which are tried out before it stops. We will start with combinations in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in reality.
 
 \subsubsection{Completeness}
-Now consider the reaction scheme shown in figure !!. To produce B we might take out reaction 2, but another possibility might be to take out reaction 3. When C accumulates the flux through reaction 2 might become 0 and B might also be produced and transported out of the cell. Our algorithm won't find this possibility, because it only searches for reactions that potentially consume B. This means our algorithm is not complete and will not return all possible reactions which can be taken out in order to create an organism that produces B. We have shortly tried to find reactions further down the pathways, but usually this yields almost all reactions of a cell. This in combination with the earlier described combinatorial problems yields a unusable algorithm. So for now we accept that the algorithm is not complete and does not guarantee that it finds all possible reactions that can be taken out to produce B.
+Now consider the reaction scheme shown in figure !!.
+To produce B we might take out reaction 2, but another possibility might be to take out reaction 3.
+When C accumulates the flux through reaction 2 might become 0 and B might also be produced and transported out of the cell.
+Our algorithm won't find this possibility, because it only searches for reactions that potentially consume B.
+This means our algorithm is not complete and will not return all possible reactions which can be taken out in order to create an organism that produces B.
+We have shortly tried to find reactions further down the pathways, but usually this yields almost all reactions of a cell.
+This in combination with the earlier described combinatorial problems yields an unusable algorithm.
+So for now we accept that the algorithm is not complete and does not guarantee that it finds all possible reactions that can be taken out to produce B.
 
 \subsubsection{From reactions to genes}
-Up until now we've only spoken about cells in terms of reactions and our algorithm takes out reactions. In reality it is very hard to influence reactions in cells directly. More often we try to manipulate reactions that happen in cells through genes. We can stop reactions for example by taking out genes that encode enzymes which catalyze a reaction. Since we want to find out what genes we can take out instead of reactions directly, we also would want our algorithm to provide these genes for us. We can change the algorithm to do this.
-The algorithm than has to do the following:
+Up until now we've only spoken about cells in terms of reactions and our algorithm takes out reactions. In reality it is very hard to influence reactions in cells directly.
+More often we try to manipulate reactions that happen in cells through genes.
+We can stop reactions for example by taking out genes that encode enzymes which catalyze a reaction.
+Since we want to find out what genes we can take out instead of reactions directly, we also would want our algorithm to provide these genes for us.
+We can change the algorithm to do this.
+The algorithm then has to do the following:
 \begin{itemize}
 \item List all reactions that potentially consume B
 \item List all combinations of reactions that when taken out potentially can make the cell produce B
@@ -124,6 +147,8 @@ The algorithm than has to do the following:
 \item return successful combinations of genes.
 \end{itemize}
 
+How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
+To solve this problem we try to be conservative when to return a solution. We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it.
 
 \begin{figure}[hbtp]
   \centering
@@ -137,7 +162,8 @@ The algorithm than has to do the following:
 \section{Methods}
 \subsection{Implementation}
 \subsubsection{Genes}
-Because the models we use are not perfect, the and- and or- relations between the genes cannot be trusted. We still want the algorithm to return genes and so we have a different implementation than the one given in the introduction.
+Because the models we use are not perfect, the and- and or- relations between the genes cannot be trusted.
+We still want the algorithm to return genes. Consider figure !!. Since we cannot trust the \emph{and} and \emph{or} relations, these are left out of the figure. Now if we want to take out reaction 1 we look at all genes associated to it (in this case gene 1 and gene 2). Now we turn off all genes associated to reaction 1. We turn these genes off by finding all reactions which have one of these genes in the gene association. The fluxes of all these reactions are set to 0. So in this case we find gene 1 and gene 2 which are associated with reaction 1. Now we find all reactions which have these genes in its gene association and find reaction 1 (gene 1 and gene 2) and reaction 2 (gene 2). In order to simulate taking out gene 2 we set the fluxes of reaction 1 and reaction 2 to zero. This seems contradictory: we say reaction 1 only stops when all genes associated to it are taken out. While when we just take out gene 2 we assume  
 
 \begin{algorithm}
   \caption{Old (simple) stable compound generator algorithm. We find reactions associated with a certain compound and take a combination of these reactions and switch them of. In reality we cannot switch off reactions, we have to remove genes. This is why this is just a simple version of the algorithm.}\label{alg:scg_old}
