@@ -88,8 +88,15 @@ For reaction 1 to happen, gene 1 and gene 2 are needed. For reaction 2 either ge
 The models we used were not perfect. Especially the \emph{and} and \emph{or} relationships of these genes cannot be trusted, simply because we don't know these relationships most of the times.
 How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
 To solve this problem we try to be conservative when to return a solution.
-Now if we call the reaction we want to take out the primary reaction. Now we list all genes associated to it. Other reactions in the model might also have these genes in their gene association and they might be dependent on them. We call these reactions the secondary reactions. We want to return
-We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it. We do this because we don't want the situation that when we have finally altered our organism, there is still a flux through the reaction, because we didn't take down all genes we needed to.
+
+
+Now if we call the reaction we want to take out the primary reaction. Now we list all genes associated to it. Other reactions in the model might also have these one of genes in their gene association. Some of these reactions might even be dependent on one of these genes. We will call reactions that have one of the genes in its gene association secondary reactions.
+
+Suppose we have an algorithm which returns a set of genes which we can delete to prevent a primary reaction from happening. We want to prevent the situation where we have actually deleted the genes and the reaction still happens. That is why, to be safe we assume we have to take out all genes that are associated with the primary reaction. Now suppose one of the reaction
+
+
+
+We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. This might not be necessary, because maybe some of the genes have an \emph{and} relationship with each other and we would just have to take out one of them. However, we cannot trust the relationships. We want to prevent the situation where the reaction would still take place from happening, when we take out too little genes. Because we assumed an \emph{or} relationship. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it. We do this because we don't want the situation that when we have finally altered our organism, there is still a flux through the reaction, because we didn't take down all genes we needed to.
 
 
 \subsection{Stable compound generator}
