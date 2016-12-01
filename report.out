@@ -1,0 +1,30 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{subsection.1.0.1}{Sustainability \(under construction\)}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.0.2}{Stable bio-production}{subsection.1.0.1}% 3
+\BOOKMARK [2][-]{subsection.1.0.3}{Stable consortium}{subsection.1.0.1}% 4
+\BOOKMARK [2][-]{subsection.1.0.4}{The search for a sustainable solution and synthetic biology}{subsection.1.0.1}% 5
+\BOOKMARK [2][-]{subsection.1.0.5}{The team iGEMAmsterdam 2015 Solution}{subsection.1.0.1}% 6
+\BOOKMARK [0][-]{chapter.2}{Algorithms}{}% 7
+\BOOKMARK [1][-]{section.2.1}{Introduction}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.1.1}{Models}{section.2.1}% 9
+\BOOKMARK [2][-]{subsection.2.1.2}{Stable compound generator}{section.2.1}% 10
+\BOOKMARK [2][-]{subsection.2.1.3}{Auxotrophy sniper}{section.2.1}% 11
+\BOOKMARK [1][-]{section.2.2}{Methods}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.1}{Implementation}{section.2.2}% 13
+\BOOKMARK [1][-]{section.2.3}{Results}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.3.1}{Stable compound generator}{section.2.3}% 15
+\BOOKMARK [1][-]{section.2.4}{Discussion}{chapter.2}% 16
+\BOOKMARK [0][-]{chapter.3}{Kinetic models}{}% 17
+\BOOKMARK [1][-]{subsection.3.0.1}{Turbidostat}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.1}{Results}{chapter.3}% 19
+\BOOKMARK [2][-]{subsection.3.1.1}{Batch}{section.3.1}% 20
+\BOOKMARK [2][-]{subsection.3.1.2}{Turbidostat}{section.3.1}% 21
+\BOOKMARK [1][-]{section.3.2}{Turbidostat model for a substrate interdependent consortium}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.2.1}{Parameters}{section.3.2}% 23
+\BOOKMARK [1][-]{section.3.3}{Results}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.4}{Introduction}{chapter.3}% 25
+\BOOKMARK [1][-]{section.3.5}{Methods}{chapter.3}% 26
+\BOOKMARK [1][-]{section.3.6}{Results}{chapter.3}% 27
+\BOOKMARK [1][-]{section.3.7}{Discussion}{chapter.3}% 28
+\BOOKMARK [0][-]{chapter.4}{Discussion}{}% 29
+\BOOKMARK [0][-]{chapter.5}{Acknowledgement}{}% 30

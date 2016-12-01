@@ -1,0 +1,71 @@
+\documentclass[10pt]{report}
+%\usepackage{ae} % or {zefonts}
+\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{makeidx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage[small]{caption}
+\usepackage{textcomp}
+\usepackage{graphicx}
+%\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+%\usepackage{epsfig}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage{algorithmicx}
+\usepackage[ruled]{algorithm}
+\usepackage[noend]{algpseudocode}
+
+% Get it from CTAN if it is not included in your TEX distribution
+%\usepackage{europs}
+%\DeclareInputText{128}{\EUR} % ANSI code for euro: �
+%   \EURhv   selects EuroSans
+%   \EURtm   selects EuroSerif
+%   \EURcr   selects EuroMono
+%   \EUR    selects one of the three above, depending on the current
+%        context
+%
+%   \EURofc  selects EuroSans Regular independent of context
+%        N.B.: This is the only "official" Euro symbol. If you
+%           want to conform with the rules of the EU (or
+%           whoever), you may only use this symbol.
+%
+%\usepackage{eurosym}
+%\DeclareInputText{128}{\euro} % ANSI code for euro: �
+
+%\usepackage{lscape}
+
+
+\title{Internship report}
+\author{Tamar Huygen \\ tamar@huygen.nl}
+
+\begin{document}
+\maketitle
+\section{Stable compound generatior}
+
+\begin{algorithm}[h]
+  \caption{Stable compound generator}\label{scg}
+  \begin{algorithmic}[1]
+    \Procedure{MyProcedure}{}
+    \State $\textit{stringlen} \gets \text{length of }\textit{string}$
+    \State $i \gets \textit{patlen}$
+    \BState \emph{top}:
+    \If {$i > \textit{stringlen}$} \Return false
+    \EndIf
+    \State $j \gets \textit{patlen}$
+    \BState \emph{loop}:
+    \If {$\textit{string}(i) = \textit{path}(j)$}
+    \State $j \gets j-1$.
+    \State $i \gets i-1$.
+    \State \textbf{goto} \emph{loop}.
+    \State \textbf{close};
+    \EndIf
+    \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+    \State \textbf{goto} \emph{top}.
+    \EndProcedure
+  \end{algorithmic}
+  \end{algorithm}
+\end{document}

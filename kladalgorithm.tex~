@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithm
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\makeatletter
+\newlength{\trianglerightwidth}
+\settowidth{\trianglerightwidth}{$\triangleright$~}
+\algnewcommand{\LineComment}[1]{\Statex \hskip\ALG@thistlm $\triangleright$ #1}
+\algnewcommand{\LineCommentCont}[1]{\Statex \hskip\ALG@thistlm%
+  \parbox[t]{\dimexpr\linewidth-\ALG@thistlm}{\hangindent=\trianglerightwidth \hangafter=1 \strut$\triangleright$ #1\strut}}
+\makeatother
+\begin{document}
+\begin{algorithm}
+  \caption{Euclid’s algorithm}\label{euclid}
+  \begin{algorithmic}[1]
+    \Procedure{FindGenes}{$compound$, $model$}
+        \State $r1 \gets [\text{ }]$ 
+        \For{$r \in model.reactions$}
+        \LineCommentCont{$model.reactions$ gives a list of all reactions in the model. $r$ loops over all these reactions}
+            \If{$compound \in r.products \wedge r.flux > 0$}
+            \LineCommentCont{$r.products$ is a list of all products produced by reaction $r$ and $r.flux$ gives the flux through the reaction $r$. If $r.flux > 0 $, then the reaction netto produces the products. If $r.flux < 0$, then the reaction mostly happens in the opposite direction, causing reactants to be formed and products to be used.}
+                \State $r1.append(r)$
+            \ElsIf{$compound \in r.reactants \wedge r.flux < 0$}
+                \State $r1.append(r)$
+            \EndIf
+        \EndFor
+        \State $r2 \gets \text{\{ \} }$
+        \For{$r$ in $r1$}
+        \For{$g \in r.GeneAssociation$}
+        \State $r2[r.name]=g.AssociatedReactions$
+        \EndFor
+        \EndFor
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+\end{document}
