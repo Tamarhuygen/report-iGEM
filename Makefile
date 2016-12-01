@@ -1,6 +1,6 @@
 all : report.pdf
 
-FIGFILES=reaction_overview plaatje2
+FIGFILES=reaction-overview1 reaction-overview2 reaction-overview3 genes1 genes2
 
 .SUFFIXES: .pdf .w .tex .html .aux .log .php
 

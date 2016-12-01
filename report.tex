@@ -243,7 +243,7 @@ To solve this problem we try to be conservative when to return a solution. We ca
 
 \begin{figure}[hbtp]
   \centering
-     \input{reaction_overview.pdftex_t}
+     \input{reaction-overview1.pdftex_t}
       \caption{Scematic overview of a pathway in which product C is produced when reaction 3 is taken out. The algorithm finds reaction 3 and takes it out and checks if biomass is still produced and if so if C is produced. However, suppose there is another pathway which the cell can use to recycle substance C, (in this figure symbolized by reaction 5), then the cell might make use of this pathway to recycle C. Taking out all reactions which might use substance C will also take out reaction 2, since in reality most of the reactions are . When reaction 2 is taken out, C won't be produced.}
   \label{fig:reaction-overview}
 \end{figure}
