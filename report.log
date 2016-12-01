@@ -1,13 +1,15 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.10.12)  1 DEC 2016 18:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Arch Linux) (preloaded format=pdflatex 2016.10.12)  1 DEC 2016 22:05
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**\input report.tex
-(./report.tex (/usr/share/texmf-dist/tex/latex/base/report.cls
+**report.tex
+(./report.tex
+LaTeX2e <2016/03/31> patch level 3
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+(/usr/share/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/share/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -599,12 +601,12 @@ LaTeX Info: Redefining \nameref on input line 51.
 * \topmargin=-52.36449pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -628,20 +630,21 @@ Chapter 1.
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 67.
 
-<human_population_curve.png, id=137, 441.65pt x 260.975pt>
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.111 I
+       n an ideal world we would have closed carbon cycles. That which we pr...
+[1
+
+] <human_population_curve.png, id=146, 441.65pt x 260.975pt>
 File: human_population_curve.png Graphic file (type png)
 
 <use human_population_curve.png>
 Package pdftex.def Info: human_population_curve.png used on input line 117.
 (pdftex.def)             Requested size: 227.62204pt x 134.50517pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.134 \subsection
-                 {The team iGEMAmsterdam 2015 Solution} [1
-
-] [2 <./human_population_curve.png>]
+ [2 <./human_population_curve.png>]
 Chapter 2.
 [3
 
@@ -650,56 +653,59 @@ Chapter 2.
 <to be read again> 
                    \relax 
 l.152 \end{abstract}
-                     [1]
+                     [1]pdfTeX warning (ext4): destination with the same identi
+fier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.180 \item I
+             f cell still grows and produces compound, return set of genes
+[1]
 
-LaTeX Warning: Reference `fig:reaction_overview' on page 1 undefined on input l
+LaTeX Warning: Reference `fig:reaction_overview' on page 2 undefined on input l
 ine 187.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.188 
-       [1]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.2}) has been already used, duplicate ignored
+l.213 
+       [2]pdfTeX warning (ext4): destination with the same identifier (name{pag
+e.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.223 
-       [2] (./reaction_overview.pdftex_t
-<reaction_overview.pdf, id=184, 236.885pt x 285.065pt>
-File: reaction_overview.pdf Graphic file (type pdf)
+l.233 \item L
+             ist all combinations of reactions that when taken out potential...
+[3] (./reaction-overview1.pdftex_t
+<reaction-overview1.pdf, id=187, 168.63pt x 130.4875pt>
+File: reaction-overview1.pdf Graphic file (type pdf)
 
-<use reaction_overview.pdf>
-Package pdftex.def Info: reaction_overview.pdf used on input line 2.
-(pdftex.def)             Requested size: 236.88441pt x 285.0643pt.
-)pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.282 
-       [3]
+<use reaction-overview1.pdf>
+Package pdftex.def Info: reaction-overview1.pdf used on input line 2.
+(pdftex.def)             Requested size: 168.62958pt x 130.48717pt.
+) [4 <./reaction-overview1.pdf>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 284.
- [4 <./reaction_overview.pdf>] [5]
+ [5] [6]
 Chapter 3.
-<Monod_3.png, id=212, 689.777pt x 404.712pt>
+<Monod_3.png, id=215, 689.777pt x 404.712pt>
 File: Monod_3.png Graphic file (type png)
  <use Monod_3.png>
 Package pdftex.def Info: Monod_3.png used on input line 347.
 (pdftex.def)             Requested size: 284.52756pt x 166.94576pt.
- [6
+ [7
 
- <./Monod_3.png>]
+] [8 <./Monod_3.png>]
 
-LaTeX Warning: Citation `franco2006model' on page 7 undefined on input line 392
+LaTeX Warning: Citation `franco2006model' on page 9 undefined on input line 392
 .
 
-[7]
+[9]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 418.
 
-[8] <independent_flask_ratios_low_mumaxe.png, id=269, 586.8324pt x 442.2924pt>
+[10]
+<independent_flask_ratios_low_mumaxe.png, id=274, 586.8324pt x 442.2924pt>
 File: independent_flask_ratios_low_mumaxe.png Graphic file (type png)
 
 <use independent_flask_ratios_low_mumaxe.png>
@@ -707,44 +713,44 @@ Package pdftex.def Info: independent_flask_ratios_low_mumaxe.png used on input
 line 484.
 (pdftex.def)             Requested size: 284.52756pt x 214.45082pt.
 
-<independent_flask_mus_low_mumaxe.png, id=274, 554.3109pt x 445.9059pt>
+<independent_flask_mus_low_mumaxe.png, id=279, 554.3109pt x 445.9059pt>
 File: independent_flask_mus_low_mumaxe.png Graphic file (type png)
 
 <use independent_flask_mus_low_mumaxe.png>
 Package pdftex.def Info: independent_flask_mus_low_mumaxe.png used on input lin
 e 493.
 (pdftex.def)             Requested size: 284.52756pt x 228.89226pt.
- [9]
-<independent_flask_ratios.png, id=302, 586.8324pt x 442.2924pt>
+ [11]
+<independent_flask_ratios.png, id=306, 586.8324pt x 442.2924pt>
 File: independent_flask_ratios.png Graphic file (type png)
 
 <use independent_flask_ratios.png>
 Package pdftex.def Info: independent_flask_ratios.png used on input line 522.
 (pdftex.def)             Requested size: 284.52756pt x 214.45082pt.
- [10 <./independent_flask_ratios_low_mumaxe.png> <./independent_flask_mus_low_m
-umaxe.png>]
-<independent_flask_mus.png, id=321, 586.8324pt x 442.2924pt>
+ [12 <./independent_flask_ratios_low_mumaxe.png>] <independent_flask_mus.png, i
+d=322, 586.8324pt x 442.2924pt>
 File: independent_flask_mus.png Graphic file (type png)
 
 <use independent_flask_mus.png>
 Package pdftex.def Info: independent_flask_mus.png used on input line 533.
 (pdftex.def)             Requested size: 284.52756pt x 214.45082pt.
- [11 <./independent_flask_ratios.png> <./independent_flask_mus.png>]
-<ratios_interdependent_1.png, id=332, 632.3625pt x 442.2924pt>
+ [13 <./independent_flask_mus_low_mumaxe.png> <./independent_flask_ratios.png>]
+
+<ratios_interdependent_1.png, id=335, 632.3625pt x 442.2924pt>
 File: ratios_interdependent_1.png Graphic file (type png)
 
 <use ratios_interdependent_1.png>
 Package pdftex.def Info: ratios_interdependent_1.png used on input line 566.
 (pdftex.def)             Requested size: 284.52756pt x 199.00949pt.
 
-<ratios_interdependent_2.png, id=337, 715.473pt x 442.2924pt>
+<ratios_interdependent_2.png, id=340, 715.473pt x 442.2924pt>
 File: ratios_interdependent_2.png Graphic file (type png)
 
 <use ratios_interdependent_2.png>
 Package pdftex.def Info: ratios_interdependent_2.png used on input line 574.
 (pdftex.def)             Requested size: 284.52756pt x 175.888pt.
 
-<ratios_interdependence_mus.png, id=342, 868.6854pt x 442.2924pt>
+<ratios_interdependence_mus.png, id=345, 868.6854pt x 442.2924pt>
 File: ratios_interdependence_mus.png Graphic file (type png)
 
 <use ratios_interdependence_mus.png>
@@ -752,15 +758,15 @@ Package pdftex.def Info: ratios_interdependence_mus.png used on input line 583.
 
 (pdftex.def)             Requested size: 284.52756pt x 144.87038pt.
 
-<ratios_interdependent_muratio.png, id=347, 717.6411pt x 442.2924pt>
+<ratios_interdependent_muratio.png, id=350, 717.6411pt x 442.2924pt>
 File: ratios_interdependent_muratio.png Graphic file (type png)
 
 <use ratios_interdependent_muratio.png>
 Package pdftex.def Info: ratios_interdependent_muratio.png used on input line 5
 91.
 (pdftex.def)             Requested size: 284.52756pt x 175.36159pt.
- [12 <./ratios_interdependent_1.png> <./ratios_interdependent_2.png>]
-<sub_dependent_turb_biomassex.png, id=369, 586.8324pt x 442.2924pt>
+ [14 <./independent_flask_mus.png>]
+<sub_dependent_turb_biomassex.png, id=368, 586.8324pt x 442.2924pt>
 File: sub_dependent_turb_biomassex.png Graphic file (type png)
 
 <use sub_dependent_turb_biomassex.png>
@@ -772,7 +778,7 @@ Overfull \hbox (9.95993pt too wide) in paragraph at lines 610--611
  [] 
  []
 
-<total_biomass1.png, id=370, 586.8324pt x 442.2924pt>
+<total_biomass1.png, id=369, 586.8324pt x 442.2924pt>
 File: total_biomass1.png Graphic file (type png)
  <use total_biomass1.png>
 Package pdftex.def Info: total_biomass1.png used on input line 618.
@@ -782,7 +788,8 @@ Overfull \hbox (9.95993pt too wide) in paragraph at lines 618--619
  [] 
  []
 
-<sub_dependent_turbidostat_bratio.png, id=372, 586.8324pt x 442.2924pt>
+[15 <./ratios_interdependent_1.png> <./ratios_interdependent_2.png>]
+<sub_dependent_turbidostat_bratio.png, id=383, 586.8324pt x 442.2924pt>
 File: sub_dependent_turbidostat_bratio.png Graphic file (type png)
 
 <use sub_dependent_turbidostat_bratio.png>
@@ -790,7 +797,7 @@ Package pdftex.def Info: sub_dependent_turbidostat_bratio.png used on input lin
 e 646.
 (pdftex.def)             Requested size: 284.52756pt x 214.45082pt.
 
-<sub_dependent_turbidostat_muratio.png, id=379, 586.8324pt x 442.2924pt>
+<sub_dependent_turbidostat_muratio.png, id=390, 586.8324pt x 442.2924pt>
 File: sub_dependent_turbidostat_muratio.png Graphic file (type png)
 
 <use sub_dependent_turbidostat_muratio.png>
@@ -798,20 +805,20 @@ Package pdftex.def Info: sub_dependent_turbidostat_muratio.png used on input li
 ne 656.
 (pdftex.def)             Requested size: 284.52756pt x 214.45082pt.
 
-<sub_dependent_turbidostat_mus.png, id=384, 738.5994pt x 442.2924pt>
+<sub_dependent_turbidostat_mus.png, id=395, 738.5994pt x 442.2924pt>
 File: sub_dependent_turbidostat_mus.png Graphic file (type png)
 
 <use sub_dependent_turbidostat_mus.png>
 Package pdftex.def Info: sub_dependent_turbidostat_mus.png used on input line 6
 64.
 (pdftex.def)             Requested size: 284.52756pt x 170.38095pt.
- [13 <./ratios_interdependence_mus.png> <./ratios_interdependent_muratio.png>] 
-[14 <./sub_dependent_turb_biomassex.png> <./total_biomass1.png> <./sub_dependen
-t_turbidostat_bratio.png>] [15 <./sub_dependent_turbidostat_muratio.png> <./sub
+ [16 <./ratios_interdependence_mus.png> <./ratios_interdependent_muratio.png>] 
+[17 <./sub_dependent_turb_biomassex.png> <./total_biomass1.png> <./sub_dependen
+t_turbidostat_bratio.png>] [18 <./sub_dependent_turbidostat_muratio.png> <./sub
 _dependent_turbidostat_mus.png>]
+[19]
 File: sub_dependent_turb_biomassex.png Graphic file (type png)
-
-<use sub_dependent_turb_biomassex.png>
+ <use sub_dependent_turb_biomassex.png>
 Package pdftex.def Info: sub_dependent_turb_biomassex.png used on input line 89
 8.
 (pdftex.def)             Requested size: 213.39566pt x 160.83136pt.
@@ -820,13 +827,13 @@ File: total_biomass1.png Graphic file (type png)
 Package pdftex.def Info: total_biomass1.png used on input line 906.
 (pdftex.def)             Requested size: 213.39566pt x 160.83136pt.
 
-<S1.png, id=428, 617.9085pt x 480.5955pt>
+<S1.png, id=445, 617.9085pt x 480.5955pt>
 File: S1.png Graphic file (type png)
  <use S1.png>
 Package pdftex.def Info: S1.png used on input line 914.
 (pdftex.def)             Requested size: 213.39566pt x 165.97429pt.
 
-<S2.png, id=429, 586.8324pt x 442.2924pt>
+<S2.png, id=446, 586.8324pt x 442.2924pt>
 File: S2.png Graphic file (type png)
  <use S2.png>
 Package pdftex.def Info: S2.png used on input line 922.
@@ -843,9 +850,8 @@ File: sub_dependent_turbidostat_mus.png Graphic file (type png)
 Package pdftex.def Info: sub_dependent_turbidostat_mus.png used on input line 9
 38.
 (pdftex.def)             Requested size: 213.39566pt x 127.78233pt.
- [16] [17 <./S1.png> <./S2.png>]
-[18]pdfTeX warning (ext4): destination with the same identifier (name{page.1}) 
-has been already used, duplicate ignored
+ [20] [21 <./S1.png> <./S2.png>]pdfTeX warning (ext4): destination with the sam
+e identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.1006 \end{abstract}
@@ -891,41 +897,37 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1038.
  ) 
 Here is how much of TeX's memory you used:
- 9371 strings out of 493013
- 138482 string characters out of 6139316
- 244842 words of memory out of 5000000
- 12626 multiletter control sequences out of 15000+600000
- 25452 words of font info for 65 fonts, out of 8000000 for 9000
+ 9367 strings out of 493013
+ 138534 string characters out of 6139316
+ 244868 words of memory out of 5000000
+ 12627 multiletter control sequences out of 15000+600000
+ 24825 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 36i,12n,39p,1173b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,12n,39p,1166b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/t
 exmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/s
-hare/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></
-usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf
--dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-su
-per/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pf
-b></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1000.pfb></usr/share/t
-exmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf-dist/fonts
-/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf-dist/fonts/type1/public/c
-m-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm120
-0.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/sha
-re/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/share/texmf-dist/f
-onts/type1/public/cm-super/sfti1000.pfb>
-Output written on report.pdf (28 pages, 1377717 bytes).
+/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-
+dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf-dist/fonts/type
+1/public/cm-super/sfbx1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-sup
+er/sfbx1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb
+></usr/share/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/share/te
+xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/
+type1/public/cm-super/sfrm1095.pfb></usr/share/texmf-dist/fonts/type1/public/cm
+-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440
+.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf-dist/fo
+nts/type1/public/cm-super/sfti1200.pfb>
+Output written on report.pdf (31 pages, 1332639 bytes).
 PDF statistics:
- 595 PDF objects out of 1000 (max. 8388607)
- 468 compressed objects within 5 object streams
- 135 named destinations out of 1000 (max. 500000)
+ 588 PDF objects out of 1000 (max. 8388607)
+ 463 compressed objects within 5 object streams
+ 138 named destinations out of 1000 (max. 500000)
  331 words of extra memory for PDF output out of 10000 (max. 10000000)
 
