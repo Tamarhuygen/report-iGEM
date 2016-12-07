@@ -16,7 +16,7 @@
 \usepackage[colorlinks]{hyperref}
 %\usepackage{epsfig}
 \usepackage[a4paper,margin=2cm]{geometry}
-\newcommand{\CO}[1]{\textsc{co}$_{#1}$}
+
 % Get it from CTAN if it is not included in your TEX distribution
 %\usepackage{europs}
 %\DeclareInputText{128}{\EUR} % ANSI code for euro: �
@@ -87,7 +87,7 @@ environmental issues. Pollution of the environment may give an (economic)
 advantage on the short term, but polluting strategies are certainly not feasible 
 considering longer timespans. 
 Then there is also the problem of global warming. Because of the increasing use 
-of fossil fuels a lot more \CO2 is released in the atmosphere and \CO2 
+of fossil fuels a lot more CO$_{2}$ is released in the atmosphere and CO$_{2}$ 
 levels have been rising. Although there are gasses with higher global warming 
 potential, a slight change in the balance of gases in the atmosphere, can have 
 an effect on temperature. This slight effect can also have an effect on other 
@@ -281,7 +281,7 @@ Assume we want to prevent a certain reaction from happening. Let us call this re
 
 This algorithm is in two aspects conservative in the solutions it returns.
 In reality we are not sure what will happen when only a subset of genes associated to a reaction gets deleted. We want to avoid the risk that a primary reaction still takes place when any of the associated genes is still present. We also don't want to render non-viable cells after we have deleted the genes. A secondary reaction might be essential for cell growth. We want to avoid the risk the algorithm returns a seemingly valid solution, where actually a secondary reaction that is essential for cell growth has been stopped. This is why we assume all secondary reactions are stopped, even though only a subset of the associated genes of these reactions is deleted.
-
+f
 How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
 To solve this problem we try to be conservative when to return a solution. We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it.
 
