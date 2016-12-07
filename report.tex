@@ -155,48 +155,62 @@ How does this module fit into the project?
 An important goal in the bio-industry is the production of certain carbon containing compounds. When we let micro-organisms produce these compounds, there is always a stability challenge. Usually it is better in terms of fitness for an organism use all carbon it can for the generation of biomass. So consider an organism which where we have inserted genes which forces the organism to produce a certain compound and transport it out of the cell, so that we may use it. A mutation may yield an organism which does no longer produce the compound. Organisms with this mutation likely have a fitness advantage over organisms without this mutation, because they can use all carbon compounds for generation of biomass and don't leak carbon compound to the environment. This means that soon after the appearance of the mutation the non-productive organisms will take over the entire population and the production stops and has to be re-initiated. We want to address this problem and have created an algorithm which searches for solutions that force an organism to produce a carbon compound, with a much smaller chance of rendering a non-productive population.
 
 \subsection{Models}\label{sec:intro_models}
-When studying cells in silico one is always dependent on models. To study metabolism of cells and the connections to the genetic network, flux balance analysis (FBA) has become an important tool. (hier een stukje in appendix over fba??)
+When studying cells in silico one is always dependent on models. To study metabolism of cells and the connections to the genetic network, flux balance analysis (FBA) has become an important tool. (hier een stukje in appendix over fba?? of hier?)
 FBA models consist of a set of differential equations that model the flux of mass through reactions as these reactions are assumed to be in steady state. The models simulate the more or less constant nett flux of mass converted by the reaction.
 It is important to note that the base of the model consists simulations of reactions.
+
+
 Genes play an important role in the models, but only in terms of the influence of the genes on the reactions.
 In reality there is a complex interaction between genes, gene regulation, transcription, translation and the reactions.
 In our models the genes are only encoded in the influence they eventually have on the flux through the reactions.
 The reactions present in the model sometimes have gene associations.
 These gene associations list genes, that when present and active, enable the reaction to happen.
+
+
 If there are multiple genes listed in the gene association they can have an \emph{or} or an \emph{and} relationship.
-In figure !! two reactions are shown with the genes that are listed in the gene association of these reactions.
+In figure \ref{fig:genes1}  two reactions are shown with the genes that are listed in the gene associations of these reactions.
 For reaction 1 to happen, either gene 1 or gene 2 are has to be active. For reaction 2 both gene 2 and gene 3 are have to be active. So when gene 2 is deactivated or deleted, while gene 1 and gene 3 stay active, reaction 2 is taken out, while reaction 1 is still active. What happens in the model to simulate the inactivity of gene 2 is that the flux of reaction 2 is set to zero.
 The models we used were not perfect. Especially the \emph{and} and \emph{or} relationships between the genes cannot be trusted, simply because we don't know these relationships most of the times.
-How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
-If we don't know the \emph{and} and \emph{or} relationships, we still have the gene associations, see figure !!.
-Assume we want to prevent a certain reaction from happening. Let us call this reaction the primary reaction. Now we assume our algorithm does the following:
-\begin{enumerate}
-\item Make a list of all genes associated to the primary reaction
-\item Make a list of all reactions that have at least one the genes from the list in its gene associations. We will call these reactions secondary reactions.
-\item Set the fluxes of all secondary reactions to zero
-\item Analyse model
-\item Check if cells still grow
-\item Check if compound of interest is produced by the cell
-\item If cell still grows and produces compound, return set of genes
-\end{enumerate}
+However, as we will see in the next sections, even if these relationships cannot be trusted is still possible to simulate the alternation of a gene in the model.
 
-This algorithm is in two aspects conservative in the solutions it returns.
-In reality we are not sure what will happen when only a subset of genes associated to a reaction gets deleted. We want to avoid the risk that a primary reaction still takes place when any of the associated genes is still present. We also don't want to render non-viable cells after we have deleted the genes. A secondary reaction might be essential for cell growth. We want to avoid the risk the algorithm returns a seemingly valid solution, where actually a secondary reaction that is essential for cell growth has been stopped. This is why we assume all secondary reactions are stopped, even though only a subset of the associated genes of these reactions is deleted.
+\begin{figure}[hbtp]
+  \centering
+     \input{genes1.pdftex_t}
+      \caption{Schematic representation of two reactions in the model with their associated genes.}
+  \label{fig:genes1}
+\end{figure}
+
+
 
 \subsection{Stable compound generator}
-The goal of the stable compound generator is to find genes which can be deleted in order to create an organism which has to produce a certain carbon compound. Consider the reaction scheme in figure \ref{fig:reaction_overview}. Our goal is to produce compound B. Our initial plan to achieve this goal is to take out reaction 2. Assume reaction 2 is the only reaction which consumes B. By taking out the reaction we hope the cell will not be able to use B and accumulate and transport it out of the cell.
+The goal of the stable compound generator is to find genes which can be deleted in order to create an organism which has to produce a certain carbon compound. Consider the reaction scheme in figure \ref{fig:reaction-overview1}. Our goal is to produce compound B. Our initial plan to achieve this goal is to take out reaction 2. Assume reaction 2 is the only reaction which consumes B. By taking out the reaction we hope the cell will not be able to use B and accumulate and transport it out of the cell.
 
 We have 2 prerequisites to be able to have a stable production of compound B. The first is that reaction 1 is essential for the production of biomass. If cells that don't use reaction 1 are still viable and produce biomass, they will most likely have a fitness advantage over cells that still use reaction 1, because they won't have to produce compound B and can use more carbon for biomass generation. But when cells that take out reaction 1 are non-viable the cells can never take over the population.
 The second requirement is that we are able to take out reaction 2 and still yield viable cells, so reaction 2 has to be non-essential for the production of biomass. It is reaction 2 which we want to find. So a first algorithm can look for all reactions that consume B and take all of them out and see if the cells still produce biomass. If so, it returns reaction 2 to us.
 
+\begin{figure}[hbtp]
+  \centering
+     \input{reaction-overview1.pdftex_t}
+      \caption{Scematic overview of a pathway in which carbon compound B is produced, when the net mass flux through reaction 2 becomes zero.}
+  \label{fig:reaction-overview1}
+\end{figure}
+
 \subsubsection{Combinatorial problems}
-The reaction schemes shown in figure !! are in some way all simplifications. Most reactions have a forward reaction and a reverse reaction. When a reaction is in chemical equilibrium, the forward reaction happens in the same rate as the reverse reaction. This means the net flux of mass through the reaction is zero. Potentially the rate of the reverse reaction can be higher than the rate of the forward reaction. This causes a negative flux through the reaction.
-Consider figure !!. Under normal circumstances B is consumed by reaction 2 and reaction 3 is in chemical equilibrium.
+The reaction schemes shown in figures \ref{fig:reaction-overview1}, \ref{fig:reaction-overview2} and \ref{fig:reaction-overview3} and are in some way all simplifications. Most reactions have a forward reaction and a reverse reaction. When a reaction is in chemical equilibrium, the forward reaction happens in the same rate as the reverse reaction. This means the net flux of mass through the reaction is zero. Potentially the rate of the reverse reaction can be higher than the rate of the forward reaction. This causes a negative flux through the reaction.
+
+\begin{figure}[hbtp]
+  \centering
+     \input{reaction-overview2.pdftex_t}
+      \caption{Scematic overview of a pathway. The goal is to produce compound B. Normally the net mass flux through reaction 3 is equal to zero. Only when the nett mass flux through reaction 2 becomes zero, the net mass flux through reaction 3 becomes non-zero and compound B is converted to compound D. In order to make the cell produce compound B we have to take out reaction 2 and reaction 3 simultaniously.}
+  \label{fig:reaction-overview2}
+\end{figure}
+
+Consider figure \ref{fig:reaction-overview2}. Under normal circumstances B is consumed by reaction 2 and reaction 3 is in chemical equilibrium.
 Only when reaction 2 is taken out, reaction 3 is used to consume B and the forward flux becomes positive.
 In order for the cell to produce B reactions 2 and 3 have to be taken out simultaneously.
 An algorithm which searches for reactions that have a mass flux from B to another substance, will only find reaction 2, because initially the flux through reaction 3 is equal to zero. Then after it sets the flux through reaction 2 to zero, the flux through reaction 3 will become positive and the cell would still not produce B. 
 To solve this problem the algorithm will have to search for all reactions which are potentially able to consume B. This means all reactions that list compound B as one of its products or as one of its reactants, independent of the mass flux.
-An algorithm that would search for these reactions would also list the reaction that initially produces the compound. In figure !! reaction 1 is such a reaction.
+An algorithm that would search for these reactions would also list the reaction that initially produces the compound. In figure \ref{fig:reaction-overview2} reaction 1 is such a reaction.
 Earlier we assumed reaction 1 is essential for the production of biomass and will yield non-viable cells.
 When the algorithm would set the flux of all reactions that list compound B one of its products as well as all reactions that list B as one of its reactants to zero it would also set the flux of reaction 1 to zero. When it then analyzes the model it will find that the cell is not viable anymore. So in order to find the combination of reactions that we have to take out in order for B to be produced (in this case take out reaction 2 and reaction 3, but not reaction 1) we will have to test combinations of reactions.
 Another possibility is that there are multiple reactions such as reaction 1 which produce B, and are essential for biomass generation.
@@ -205,15 +219,21 @@ So the algorithm has to list all reactions that potentially consume B, and find 
 In order to find this subset we have to try out all possible subsets. In this scheme the possibilities the algorithm would create the following list of reactions: ${1, 2, 3}$.
 Then it will have to create a list of all combinations of these reactions: ${{1},{2},{3},{1,2},{1,3},{2,3}}$ (the list doesn't contain $\emptyset$, nor ${1,2,3}$ because we don't have to try taking out no reactions, because then we wouldn't change the cell and we don't have to try taking out all reactions, because then we will also take out all reactions that produce B and we cannot produce B to begin with).
 The algorithm then has to try each of these subsets.
-In the example given by figure !! it is possible to try out all these possibilities within a reasonable amount of time.
+In the example given by figure \ref{fig:reaction-overview2} it is possible to try out all these possibilities within a reasonable amount of time.
 In all combinations where reaction 1 is taken out the cells are not viable, so such an algorithm won't return them and in cases where only reaction 2 or reaction 3 is taken out, B won't be produced, so the algorithm also won't return them, but the algorithm will return ${2,3}$ given that reactions 2 and 3 are not essential for cell growth.
 However if $n$ is the number of reactions where B is involved in, the amount of possible combinations increases with $2^n$.
 This means the algorithm will exponentially become slower with the amount of reactions that are involved.
 In the implementation of the algorithm we will define an upper limit of combinations which are tried out before it stops. We will start with combinations in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in vivo.
 
 \subsubsection{Completeness}
-Now consider the reaction scheme shown in figure !!.
-To produce B we might take out reaction 2, but another possibility might be to take out reaction 3.
+\begin{figure}[hbtp]
+  \centering
+     \input{reaction-overview3.pdftex_t}
+      \caption{Scematic overview of a pathway. The goal is to produce compound B. By changing the net mass flux through reaction 4 to zero, compound C might build up, keeping reaction 2 in equilibrium. In this way compound B is also produced. This possible way to produce compound B is overlooked if we only consider reactions that possibly consume compound B.}
+  \label{fig:reaction-overview3}
+\end{figure}
+Now consider the reaction scheme shown in figure \ref{fig:reaction-overview3}.
+To produce B we might take out reaction 2, but another possibility might be to take out reaction 4.
 When C accumulates the flux through reaction 2 might become 0 and B might also be produced and transported out of the cell.
 Our algorithm won't find this possibility, because it only searches for reactions that potentially consume B.
 This means our algorithm is not complete and will not return all possible reactions which can be taken out in order to create an organism that produces B.
@@ -238,15 +258,32 @@ The algorithm then has to do the following:
 \item Return successful combinations of genes.
 \end{itemize}
 
-How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
-To solve this problem we try to be conservative when to return a solution. We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it.
-
 \begin{figure}[hbtp]
   \centering
-     \input{reaction-overview1.pdftex_t}
-      \caption{Scematic overview of a pathway in which product C is produced when reaction 3 is taken out. The algorithm finds reaction 3 and takes it out and checks if biomass is still produced and if so if C is produced. However, suppose there is another pathway which the cell can use to recycle substance C, (in this figure symbolized by reaction 5), then the cell might make use of this pathway to recycle C. Taking out all reactions which might use substance C will also take out reaction 2, since in reality most of the reactions are . When reaction 2 is taken out, C won't be produced.}
-  \label{fig:reaction-overview}
+     \input{genes1.pdftex_t}
+      \caption{Schematic overview of gene associations without their \emph{and} and \emph{or} relationships.}
+  \label{fig:genes2}
 \end{figure}
+
+However, like stated in section \ref{sec:intro_models}, we cannot trust the \emph{and} and \emph{or} relationships in the model.
+How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
+If we don't know the \emph{and} and \emph{or} relationships, we still have the gene associations, see figure \ref{fig:genes2}.
+Assume we want to prevent a certain reaction from happening. Let us call this reaction the primary reaction. Now we assume our algorithm does the following:
+\begin{enumerate}
+\item Make a list of all genes associated to the primary reaction
+\item Make a list of all reactions that have at least one the genes from the list in its gene associations. We will call these reactions secondary reactions.
+\item Set the fluxes of all secondary reactions to zero
+\item Analyse model
+\item Check if cells still grow
+\item Check if compound of interest is produced by the cell
+\item If cell still grows and produces compound, return set of genes
+\end{enumerate}
+
+This algorithm is in two aspects conservative in the solutions it returns.
+In reality we are not sure what will happen when only a subset of genes associated to a reaction gets deleted. We want to avoid the risk that a primary reaction still takes place when any of the associated genes is still present. We also don't want to render non-viable cells after we have deleted the genes. A secondary reaction might be essential for cell growth. We want to avoid the risk the algorithm returns a seemingly valid solution, where actually a secondary reaction that is essential for cell growth has been stopped. This is why we assume all secondary reactions are stopped, even though only a subset of the associated genes of these reactions is deleted.
+
+How can we then say anything about which genes we have to alter in order to have the cell create a certain compound?
+To solve this problem we try to be conservative when to return a solution. We can let the algorithm list all genes associated with the reactions we want to take out. Then we list all reactions which have one of these genes listed in their gene associations. To take out a certain reaction, we take out all genes associated with it. To simulate this, we take out all reactions which have one of these genes in its gene association. We can see that there are now two contradictory assumptions in play. Consider  In order to take out one reaction we first assume we have to take down all gene associated with it.
 
 \subsection{Auxotrophy sniper}
 Auxotrophes are organisms that have an auxotrophy. An auxotrophy is a dependence on a certain compound for a cell to grow. See previous sections.
@@ -256,23 +293,25 @@ Once again our algorithm searches for such genes. When we found a certain combin
 When this is the case we create a source in the extracellular space (in this way we simulate adding compound to the medium) and once again analyse the model. Now the organism should be able to grow again. Here follows an overview of how the Auxotrophy Sniper works: 
 The algorithm takes a list of compounds of which you want to make a synthesis deficiency in the 
 organism of choice. This list can contain for example vitamins or amino acids. For each 
-metabolite on the list it does the following: 
-● Set flux boundaries of source reaction in the extracellular space (if there is already one 
+metabolite on the list it does the following:
+\begin{itemize}
+\item Set flux boundaries of source reaction in the extracellular space (if there is already one 
 present) to zero. 
-● Find all primary reactions associated to the compound we want to make the organism 
+\item Find all primary reactions associated to the compound we want to make the organism 
 dependent on. 
-● For each primary reaction, find genes which are associated to the primary reactions. 
-● For each gene find all reactions which have the gene in their gene association 
+\item For each primary reaction, find genes which are associated to the primary reactions. 
+\item For each gene find all reactions which have the gene in their gene association 
 (secondary reactions). 
-● Make a list of possible combinations of genes which can be knocked out. 
-● Go over the combinations one­by­one, for each gene in a combination turn off primary 
+\item Make a list of possible combinations of genes which can be knocked out. 
+\item Go over the combinations one­by­one, for each gene in a combination turn off primary 
 and secondary reactions. 
-● Per combination, do a flux balance analysis and check for biomass formation (growth). 
-● If it does not form any biomass, a source reaction of the compound is added to the 
-model ●
-Another flux balance analysis of the model is done and if there is biomass formation 
+\item Per combination, do a flux balance analysis and check for biomass formation (growth). 
+If it does not form any biomass, a source reaction of the compound is added to the 
+model
+\item Another flux balance analysis of the model is done and if there is biomass formation 
 now, the combination of genes are good candidates. If this combination of genes is 
 knocked out the organism will probably become an auxotroph.
+\end{itemize}
 
 \section{Methods}
 \subsection{Implementation}
@@ -1035,4 +1074,7 @@ How to advance.
 
 \chapter{Acknowledgement}
 
+
+\bibliographystyle{unsrtnat}
+\bibliography{iGEMrefs}
 \end{document}
