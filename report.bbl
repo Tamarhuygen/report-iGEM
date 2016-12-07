@@ -1,0 +1,16 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Franco-Lara et~al.(2006)Franco-Lara, Havel, Peterat, and
+  Weuster-Botz]{franco2006model}
+Ezequiel Franco-Lara, Jan Havel, Frank Peterat, and Dirk Weuster-Botz.
+\newblock Model-supported optimization of phototrophic growth in a stirred-tank
+  photobioreactor.
+\newblock \emph{Biotechnology and bioengineering}, 95\penalty0 (6):\penalty0
+  1177--1187, 2006.
+
+\end{thebibliography}
