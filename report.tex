@@ -171,14 +171,14 @@ These gene associations list genes, that when present and active, enable the rea
 
 If there are multiple genes listed in the gene association they can have an \emph{or} or an \emph{and} relationship.
 In figure \ref{fig:genes1}  two reactions are shown with the genes that are listed in the gene associations of these reactions.
-For reaction 1 to happen, either gene 1 or gene 2 are has to be active. For reaction 2 both gene 2 and gene 3 are have to be active. So when gene 2 is deactivated or deleted, while gene 1 and gene 3 stay active, reaction 2 is taken out, while reaction 1 is still active. What happens in the model to simulate the inactivity of gene 2 is that the flux of reaction 2 is set to zero. From now on we will call this 'deactivating a gene', or 'taking out a gene'
-The models we used were not perfect. Especially the \emph{and} and \emph{or} relationships between the genes cannot be trusted, simply because we don't know these relationships most of the times.
+To enable reaction 1, either gene 1 or gene 2 has to be present and active. To enable both gene 2 and gene 3 are have to be present and active. So when gene 2 is deactivated or deleted, while gene 1 and gene 3 stay active, reaction 2 is taken out, while reaction 1 is still active. What happens in the model to simulate the inactivity of gene 2 is that the flux of reaction 2 is set to zero. From now on we will call this 'deactivating a gene', or 'taking out a gene'
+However, the models we used for the iGEM project were not perfect. Especially the \emph{and} and \emph{or} relationships between the genes cannot be trusted, simply because we don't know these relationships most of the times.
 However, as we will see in the next sections, even if these relationships cannot be trusted is still possible to simulate the alternation of a gene in the model.
 
 \begin{figure}[hbtp]
   \centering
      \input{genes1.pdftex_t}
-      \caption{Schematic representation of two reactions in the model with their associated genes.}
+      \caption{Schematic representation of two reactions in the model with their associated genes. Gene 1 and gene 2 have an \emph{or} relationship, which means only one of them has to be present and active in the cell to enable for reaction 1. Gene 2 and gene 3 have an \emph{and} relationship. This means that both gene 2 and gene 3 have to be present and active to enable reaction 2.}
   \label{fig:genes1}
 \end{figure}
 
@@ -198,7 +198,7 @@ The second requirement is that we are able to take out reaction 2 and still yiel
 \begin{figure}[hbtp]
   \centering
      \input{reaction-overview1.pdftex_t}
-      \caption{Schematic overview of mass fluxes through a part of a pathway. Reaction 1 converts compound A into biomass. Compound B is a side product of this reaction. Compound B is then converted into compound C by reaction 2. The goal of the algorithm is to find reaction 2. When we take out reaction 2 compound B will no longer be converted into compound C and the cell is forced to produce compound B as it grows.}
+      \caption{Schematic overview of mass fluxes through a part of a pathway. Reaction 1 converts compound A into biomass and compound B. Compound B is then converted into compound C by reaction 2. When we take out reaction 2 compound B will no longer be converted into compound C and the cell is forced to produce compound B as it grows.}
   \label{fig:reaction-overview1}
 \end{figure}
 
@@ -207,7 +207,7 @@ Like stated in section \ref{sec:intro_models}, a flux through a reaction is zero
 \begin{figure}[hbtp]
   \centering
      \input{reaction-overview2.pdftex_t}
-      \caption{}
+      \caption{Schematic overview of mass fluxes through a part of a pathway. Reaction 1 converts compound A into biomass and compound B. Compound B is then converted into compound C by reaction 2. Normally the mass flux through reaction 3 is zero. However, when we take out reaction 2 reaction 3 becomes active and compound B is still consumed by the cell. To force the cell to produce B as it grows, we have to take out both reaction 2 and 3 simultaneously.}
   \label{fig:reaction-overview2}
 \end{figure}
 
@@ -232,7 +232,7 @@ In the implementation of the algorithm we will define an upper limit of combinat
 \begin{figure}[hbtp]
   \centering
      \input{reaction-overview3.pdftex_t}
-      \caption{Schematic overview of a pathway. The goal is to produce compound B. By changing the net mass flux through reaction 4 to zero, compound C might build up, keeping reaction 2 in equilibrium. In this way compound B is also produced. This possible way to produce compound B is overlooked if we only consider reactions that possibly consume compound B.}
+      \caption{Schematic overview of mass fluxes through a part of a pathway. Reaction 1 converts compound A into biomass and compound B. Compound B is then converted into compound C by reaction 2. When we take out reaction 2 compound B will no longer be converted into compound C and the cell is forced to produce compound B as it grows. Another possible way to force the cell to produce compound B, might be to take out reaction 4. When we take out reaction 4, compound C could build up and reaction 2 could reach chemical equilibrium and compound B would be produced. However, when we only look at reactions that have compound B as a product or reactant, we will not find this possibility.}
   \label{fig:reaction-overview3}
 \end{figure}
 Now consider the reaction scheme shown in figure \ref{fig:reaction-overview3}.
