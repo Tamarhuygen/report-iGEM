@@ -226,9 +226,11 @@ In our example, the list of reactions would be: $\{1, 2, 3\}$.
 Then the possible subsets of reactions: $\{\{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\}\}$. The list doesn't contain $\emptyset$, because then the cell would not be changed, nor $\{1,2,3\}$ because then we don't produce B anymore. For each of these subsets, the algorithm will take out all reactions in the subset, and check if the cell is still viable and if it produces compound B and will return the successful subsets, in this example only $\{2,3\}$
 However if $n$ is the number of reactions where B is involved in, the amount of possible combinations increases with $2^n$.
 This means the algorithm will exponentially become slower with the amount of reactions that are involved.
-In the implementation of the algorithm we will define an upper limit of combinations which are tried out before it stops. We will start with combinations in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in vivo.
+In the implementation of the algorithm we will define an upper limit of subsets that are tried out before it stops. The algorithm will start with subsets in which only a small number of reactions has to be taken out, because this is also the easiest to achieve in vivo.
 
 \subsubsection{Completeness}
+As we want to be able to create an organism that is forced to produce a certain compound as it grows. This might not always be possible. However, maybe we cannot guarantee that we can force an organism to produce something, at least we would want to be able to guarantee that if there is a possible way to achieve this goal, that we would find it.
+
 \begin{figure}[hbtp]
   \centering
      \input{reaction-overview3.pdftex_t}
@@ -245,7 +247,7 @@ This in combination with the earlier described combinatorial problems yields an 
 So for now we accept that the algorithm is not complete and does not guarantee that it finds all possible reactions that can be taken out to produce B.
 
 \subsubsection{From reactions to genes}
-Up until now we've only spoken about cells in terms of reactions and our algorithm takes out reactions. In reality it is very hard to influence reactions in cells directly.
+Up until now we've only spoken about cells in terms of reactions and our algorithm takes out reactions. Although different pathways can be activated in different environments, and thus  In reality it is very hard to influence reactions in cells directly.
 More often we try to manipulate reactions that happen in cells through genes.
 We can stop reactions for example by taking out genes that encode enzymes which catalyze a reaction.
 Since we want to find out what genes we can take out instead of reactions directly, we also would want our algorithm to provide these genes for us.
