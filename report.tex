@@ -156,7 +156,9 @@ An important goal in the bio-industry is the production of certain carbon contai
 
 \subsection{Models}\label{sec:intro_models}
 When studying cells in silico one is always dependent on models. To study metabolism of cells and the connections to the genetic network, flux balance analysis (FBA) has become an important tool. (hier een stukje in appendix over fba?? of hier?)
-FBA models consist of a set of differential equations that model the flux of mass through reactions as these reactions are assumed to be in steady state. Most reactions in the cell actually have a forward and a reverse reaction. The steady state assumption means that we assume that there is a net mass flux through the reaction. When the rate of the forward reaction is bigger than the rate of the reverse reaction, this flux is positive. When the reverse reaction rate is bigger than the forward reaction rate the flux is negative and when a reaction is in chemical equilibrium, the flux is zero.
+FBA models consist of a set of differential equations that model the flux of mass through reactions as these reactions are assumed to be in steady state. Most reactions in the cell actually have a forward and a reverse reaction. The steady state assumption means that we assume that there is a constant mass flux through the reaction.
+
+The model of an organism usually consist of an xml file where differential equations for When the rate of the forward reaction is bigger than the rate of the reverse reaction, this flux is positive. When the reverse reaction rate is bigger than the forward reaction rate the flux is negative and when a reaction is in chemical equilibrium, the flux is zero.
 It is important to note that the base of the model consists simulations of reactions.
 
 For the iGEM project we used models genome of scaled metabolic networks. When the model is analyzed, the fluxes through all reactions are calculated and the amount of growth is calculated. The amount of growth is represented by the amount of biomass that is formed by the organism. The models simulate cells that are supposed to be in steady state in the exponential phase of the culture. This means that when there is no growth, or biomass formation, the culture would be washed out in an actual turbidostat or chemostat. The models assume that cells are non-viable when there is no growth or biomass formation. The algorithms we created will change the models in the sense that they change the flux going through these reactions. When certain changes are made the model is re-analyzed. All fluxes are calculated again and the amount of growth is measured. For simplicity, when we set a flux of a reaction in the model to zero we will from now on call this 'taking out the reaction' or 'blocking a reaction'.
@@ -333,13 +335,13 @@ We still want the algorithm to return genes. Consider figure !!. Since we cannot
         \For{$r \in model.reactions$}
         \LineCommentCont{$model.reactions$ gives a list of all reactions in the model. $r$ loops over all these reactions}
             \If{$compound \in r.products \vee compound \in r.reactans$}
-            \LineCommentCont{$r.products$ is a list of all products produced by reaction and $r.ractants$ is a list of all reactants of reaction $r$.}
+            \LineCommentCont{$r.products$ is a list of all products produced by reaction and $r.reactants$ is a list of all reactants of reaction $r$.}
                 \State $r1.append(r)$
             \EndIf
         \EndFor
         \If{$length(r1)>1$}
             \State $combinations \gets [comb(r1)]$
-            \LineCommentCont{$combinations$ is a list of lists. Each list in combinations contains a combination of reactions that are in r1}
+            \LineCommentCont{$combinations$ is a list of lists. Each list in combinations contains a combination of reactions that are in 1}
             \State $genes \gets \text{\{ \}}$
             \For{$c \in combinations$}
                 \For{$r \in c$}
